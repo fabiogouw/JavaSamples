@@ -12,6 +12,6 @@ public class HelloController {
 	public String index() {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
-		return "Greetings from Spring Boot built with Gradle: " + dateFormat.format(date); 
+		return "Greetings from Spring Boot built with Gradle (v2): " + dateFormat.format(date); 
 	}
 }

@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 @RestController
 public class LancamentoController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(LancamentoController.class);
+	//private static final Logger LOGGER = LoggerFactory.getLogger(LancamentoController.class);
 	private static int _count = 0;
 
 	@Autowired
@@ -43,11 +43,11 @@ public class LancamentoController {
 		}
 	}
 
-	@KafkaListener(topics = "transacoes")
+	/*@KafkaListener(topics = "transacoes")
 	public void receive(String payload) {
 		LOGGER.info("received payload = '{}'", payload);
 		_count++;
-	}
+	}*/
 	
 	@RequestMapping(value = "/kafka", method = RequestMethod.GET)
 	public int getTotal() {

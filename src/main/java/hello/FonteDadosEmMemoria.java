@@ -1,16 +1,23 @@
 package hello;
 
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FonteDadosEmMemoria implements FonteDados {
 
-	private static Lancamento[] _lancamentos = new Lancamento[] {
-			new Lancamento(1000, new Date(), "teste")
-	};
+	private static List<Lancamento> _lancamentos = new ArrayList<Lancamento>();
 	
 	@Override
 	public Lancamento[] listar() {
-		return _lancamentos;
+		Lancamento[] lancamentos = new Lancamento[_lancamentos.size()];
+		lancamentos = _lancamentos.toArray(lancamentos);
+		return lancamentos;
 	}
 
+	@Override
+	public Lancamento incluir(Lancamento lancamento) {
+		_lancamentos.add(lancamento);
+		return lancamento;
+	}
 }

@@ -1,25 +1,36 @@
 package hello;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 
 @RestController
 public class LancamentoController {
 	
-	private final FonteDados _fonteDados;
+	@Autowired
+	private FonteDados _fonteDados;
+	@Autowired
+	private KafkaTemplate<String, String> _kafkaTemplate;	
 	
-	public LancamentoController(FonteDados fonteDados) {
-		_fonteDados = fonteDados;
-	}
-	
-	@RequestMapping("/")
+	@RequestMapping(value = "/transacao", method = RequestMethod.GET)
 	public Lancamento[] index() {
 		return _fonteDados.listar();
-		/*DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Date date = new Date();
-		return "Greetings from Spring Boot built with Gradle (v2): " + dateFormat.format(date);*/ 
 	}
+	
+	@RequestMapping(value = "/transacao", method = RequestMethod.POST)
+	public Lancamento criarLancamento(Lancamento lancamento) {
+		try {
+			if(lancamento != null) {
+				lancamento.setData(new Date());
+				_fonteDados.incluir(lancamento);
+				_kafkaTemplate.send("transacoes", lancamento.toString());
+			}
+			return lancamento;
+		} catch(Exception ex) {
+			throw new RuntimeException(ex);
+		}
+	}	
 }

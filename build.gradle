@@ -1,6 +1,6 @@
 buildscript {
 	repositories {
-		mavenCentral()
+		mavenCentral()		
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.9.RELEASE")
@@ -9,7 +9,6 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 jar {
@@ -19,12 +18,21 @@ jar {
 
 repositories {
 	mavenCentral()
+	jcenter()
+	maven {
+		url "https://repo.spring.io/libs-snapshot"
+	}
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-	compile("org.springframework.boot:spring-boot-starter-web")
-	testCompile("junit:junit")
+    compile "org.apache.kafka:kafka-clients:0.10.2.0"
+    compile "org.springframework.kafka:spring-kafka:1.2.2.RELEASE"
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile 'com.google.guava:guava:20.0'
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile "org.springframework.kafka:spring-kafka-test:1.2.2.RELEASE"
+    testCompile("junit:junit")	
 }

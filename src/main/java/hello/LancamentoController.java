@@ -2,6 +2,8 @@ package hello;
 
 import java.util.Date;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class LancamentoController {
 	}
 	
 	@RequestMapping(value = "/transacao", method = RequestMethod.POST)
-	public Lancamento criarLancamento(Lancamento lancamento) {
+	public Lancamento criarLancamento(@RequestBody Lancamento lancamento) {
 		try {
 			if(lancamento != null) {
 				lancamento.setData(new Date());

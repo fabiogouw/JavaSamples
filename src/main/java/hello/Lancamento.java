@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 
 public class Lancamento {
+	private String _conta;
 	private double _valor;
 	private Date _data;
 	private String _descricao;
@@ -15,14 +16,24 @@ public class Lancamento {
 	public Lancamento() {
 		
 	}
+	
 	@JsonCreator
-	public Lancamento(@JsonProperty("valor") double valor, 
+	public Lancamento(@JsonProperty("conta") String conta, 
+			@JsonProperty("valor") double valor,
 			@JsonProperty("data") Date data, 
 			@JsonProperty("descricao") String descricao) {
+		_conta = conta;
 		_valor = valor;
 		_data = data;
 		_descricao = descricao;
 	}
+
+	public void setConta(String conta) {
+		_conta = conta;
+	}
+	public String getConta() {
+		return _conta;
+	}	
 	
 	public void setValor(double valor) {
 		_valor = valor;
